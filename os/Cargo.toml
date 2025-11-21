@@ -1,0 +1,59 @@
+[package]
+name = "os"
+version = "0.1.0"
+edition = "2021"
+authors = ["RISC-V OS Project"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+# ============================================
+# RISC-V 64 依赖配置
+# ============================================
+
+[dependencies]
+# 基础依赖
+volatile = "0.2.6"              # Volatile 读写操作
+spin = "0.5.2"                  # 自旋锁
+uart_16550 = "0.3.0"            # UART 16550 串口驱动（RISC-V 兼容）
+linked_list_allocator = "0.10.5" # 堆分配器
+bitflags = "2.6"                # 位标志
+
+# RISC-V 特定依赖
+riscv = "0.11"                  # RISC-V 架构支持
+
+[dependencies.lazy_static]
+version = "1.0"
+features = ["spin_no_std"]
+
+[dependencies.crossbeam-queue]
+version = "0.3.11"
+default-features = false
+features = ["alloc"]
+
+[dependencies.conquer-once]
+version = "0.2.0"
+default-features = false
+
+[dependencies.futures-util]
+version = "0.3.4"
+default-features = false
+features = ["alloc"]
+
+# ============================================
+# 测试配置
+# ============================================
+
+[profile.test]
+panic = "abort"
+
+[[test]]
+name = "basic_boot"
+harness = false
+
+[[test]]
+name = "heap_allocation"
+harness = false

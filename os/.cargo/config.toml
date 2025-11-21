@@ -1,0 +1,42 @@
+# ============================================
+# RISC-V 64 构建配置
+# ============================================
+
+[build]
+# 使用内置的 RISC-V 64 目标
+target = "riscv64imac-unknown-none-elf"
+
+[toolchain]
+# 需要 nightly 版本的 Rust
+channel = "nightly"
+
+[unstable]
+# 从源代码构建标准库组件
+build-std = ["core", "compiler_builtins", "alloc"]
+build-std-features = ["compiler-builtins-mem"]
+
+# ============================================
+# RISC-V 目标配置
+# ============================================
+
+[target.riscv64imac-unknown-none-elf]
+# 指定链接脚本
+rustflags = ["-C", "link-arg=-Tlinker-riscv64.ld"]
+
+# ============================================
+# QEMU 运行配置
+# ============================================
+
+[target.'cfg(target_arch = "riscv64")']
+# RISC-V QEMU 运行器（GUI 窗口模式）
+runner = """qemu-system-riscv64 \
+    -machine virt \
+    -cpu rv64 \
+    -smp 1 \
+    -m 128M \
+    -bios default \
+    -serial stdio \
+    -display default \
+    -kernel"""
+
+
