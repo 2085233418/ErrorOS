@@ -67,7 +67,7 @@ pub extern "C" fn kernel_main() -> ! {
     use os::allocator;
 
     println!("Welcome to Error OS{}", "!");
-    os::init();
+    //
 
     // 获取内核结束地址（由链接器定义）
     extern "C" {
@@ -82,6 +82,7 @@ pub extern "C" fn kernel_main() -> ! {
         .expect("heap initialization failed");
 
     let heap_value=Box::new(41);
+    os::init();
     println!("heap_value {:p}",heap_value);
 
     let mut vec = Vec::new();
