@@ -81,6 +81,9 @@ pub extern "C" fn kernel_main() -> ! {
     allocator::init_heap(&mut memory_manager.frame_allocator)
         .expect("heap initialization failed");
 
+    // 初始化文件系统（第7章新增）
+    os::fs::init();
+
     let heap_value=Box::new(41);
     println!("heap_value {:p}",heap_value);
 
@@ -97,38 +100,41 @@ pub extern "C" fn kernel_main() -> ! {
     println!("reference count is {} now", Rc::strong_count(&cloned_reference));
 
     // ========================================
-    // 测试页表功能（可视化教学演示）
+    // 初始化进程管理系统
     // ========================================
-    println!("\n========================================");
-    println!("  页表功能测试（教学演示）");
-    println!("========================================\n");
-    test_page_table_features(&mut memory_manager);
+    os::process::init();
 
     // ========================================
-    // 创建并激活内核地址空间（暂时注释，先测试系统调用）
+    // 系统环境初始化（带可视化演示）
+    // ========================================
+    // 完整的系统初始化（进程 + 文件系统）
+    os::system_init::initialize_system();
+
+    // ========================================
+    // 以下是演示代码（已禁用，如需查看演示请取消注释）
     // ========================================
     // println!("\n========================================");
-    // println!("  创建内核地址空间");
+    // println!("  系统调用功能测试");
     // println!("========================================\n");
-    // test_kernel_address_space(&mut memory_manager);
+    // test_syscall_features();
 
-    // ========================================
-    // 测试系统调用功能
-    // ========================================
-    println!("\n========================================");
-    println!("  系统调用功能测试");
-    println!("========================================\n");
-    test_syscall_features();
+    // println!("\n========================================");
+    // println!("  进程管理演示（第6章）");
+    // println!("========================================\n");
+    // os::process::visualization::run_all_demos();
 
-    println!("\n========================================");
-    println!("  所有测试完成！");
-    println!("========================================\n");
+    // println!("\n========================================");
+    // println!("  文件系统演示（第7章）");
+    // println!("========================================\n");
+    // os::fs::visualization::run_all_demos();
 
     // 测试完成后进入等待模式（而不是异步执行器）
     println!("系统已就绪，按Ctrl+A然后X退出QEMU\n");
 
-    // 进入低功耗循环等待
-    os::hlt_loop();
+    // 简单的死循环等待（避免wfi触发中断问题）
+    loop {
+        core::hint::spin_loop();
+    }
 }
 
 async fn async_number() -> u32 {

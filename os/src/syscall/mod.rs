@@ -25,18 +25,32 @@ use crate::serial_println;
 #[repr(usize)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum SyscallId {
+    Read = 63,       // sys_read（第7章新增）
     Write = 64,      // sys_write
     Exit = 93,       // sys_exit
     GetPid = 172,    // sys_getpid
+    Fork = 220,      // sys_fork（第6章新增）
+    Exec = 221,      // sys_exec（第6章新增）
+    WaitPid = 260,   // sys_waitpid（第6章新增）
+    Open = 56,       // sys_open（第7章新增）
+    Close = 57,      // sys_close（第7章新增）
+    Mkdir = 34,      // sys_mkdir（第7章新增）
     Unknown = 9999,
 }
 
 impl From<usize> for SyscallId {
     fn from(id: usize) -> Self {
         match id {
+            34 => SyscallId::Mkdir,
+            56 => SyscallId::Open,
+            57 => SyscallId::Close,
+            63 => SyscallId::Read,
             64 => SyscallId::Write,
             93 => SyscallId::Exit,
             172 => SyscallId::GetPid,
+            220 => SyscallId::Fork,
+            221 => SyscallId::Exec,
+            260 => SyscallId::WaitPid,
             _ => SyscallId::Unknown,
         }
     }
@@ -138,6 +152,13 @@ pub fn syscall_dispatcher(context: &SyscallContext) -> isize {
     }
 
     let result = match syscall_id {
+        SyscallId::Read => {
+            syscall_impl::sys_read(
+                context.arg0,
+                context.arg1 as *mut u8,
+                context.arg2,
+            )
+        }
         SyscallId::Write => {
             syscall_impl::sys_write(
                 context.arg0,
@@ -145,11 +166,37 @@ pub fn syscall_dispatcher(context: &SyscallContext) -> isize {
                 context.arg2,
             )
         }
+        SyscallId::Open => {
+            syscall_impl::sys_open(
+                context.arg0 as *const u8,
+                context.arg1,
+            )
+        }
+        SyscallId::Close => {
+            syscall_impl::sys_close(context.arg0)
+        }
+        SyscallId::Mkdir => {
+            syscall_impl::sys_mkdir(context.arg0 as *const u8)
+        }
         SyscallId::Exit => {
             syscall_impl::sys_exit(context.arg0 as i32)
         }
         SyscallId::GetPid => {
             syscall_impl::sys_getpid()
+        }
+        SyscallId::Fork => {
+            syscall_impl::sys_fork()
+        }
+        SyscallId::Exec => {
+            syscall_impl::sys_exec(
+                context.arg0 as *const u8,
+            )
+        }
+        SyscallId::WaitPid => {
+            syscall_impl::sys_waitpid(
+                context.arg0 as isize,
+                context.arg1 as *mut i32,
+            )
         }
         SyscallId::Unknown => {
             serial_println!(

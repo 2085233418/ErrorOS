@@ -1,0 +1,489 @@
+warning: `panic` setting is ignored for `test` profile
+warning: unused imports: `PAGE_SIZE` and `PhysFrame`
+  --> src/memory/paging.rs:14:76
+   |
+14 | use super::{PhysAddr, VirtAddr, PageTable, PageTableEntry, PageTableFlags, PhysFrame, SimpleFrameAllocator, PAGE_SIZE};
+   |                                                                            ^^^^^^^^^                        ^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `alloc::sync::Arc`
+  --> src/process/scheduler.rs:21:5
+   |
+21 | use alloc::sync::Arc;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::serial_println`
+  --> src/process/scheduler.rs:29:5
+   |
+29 | use crate::serial_println;
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `MemInode`
+ --> src/fs/ramfs.rs:4:27
+  |
+4 | use super::inode::{Inode, MemInode, permissions};
+  |                           ^^^^^^^^
+
+warning: unused imports: `STDERR`, `STDIN`, and `STDOUT`
+ --> src/fs/manager.rs:3:44
+  |
+3 | use super::fd_table::{FileDescriptorTable, STDIN, STDOUT, STDERR};
+  |                                            ^^^^^  ^^^^^^  ^^^^^^
+
+warning: unused import: `FD_TABLE`
+ --> src/system_init.rs:7:24
+  |
+7 | use crate::fs::{RAMFS, FD_TABLE, File, Inode};
+  |                        ^^^^^^^^
+
+warning: unused import: `alloc::sync::Arc`
+  --> src/system_init.rs:10:5
+   |
+10 | use alloc::sync::Arc;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `spin::Mutex`
+  --> src/system_init.rs:11:5
+   |
+11 | use spin::Mutex;
+   |     ^^^^^^^^^^^
+
+warning: unnecessary `unsafe` block
+   --> src/task/executor.rs:107:13
+    |
+107 |             unsafe {
+    |             ^^^^^^ unnecessary `unsafe` block
+    |
+    = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `flags`
+  --> src/syscall/syscall_impl.rs:53:34
+   |
+53 | pub fn sys_open(path: *const u8, flags: usize) -> isize {
+   |                                  ^^^^^ help: if this is intentional, prefix it with an underscore: `_flags`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `path`
+   --> src/syscall/syscall_impl.rs:159:17
+    |
+159 | pub fn sys_exec(path: *const u8) -> isize {
+    |                 ^^^^ help: if this is intentional, prefix it with an underscore: `_path`
+
+warning: unused variable: `pid`
+   --> src/syscall/syscall_impl.rs:165:20
+    |
+165 | pub fn sys_waitpid(pid: isize, exit_code_ptr: *mut i32) -> isize {
+    |                    ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+
+warning: unused variable: `exit_code_ptr`
+   --> src/syscall/syscall_impl.rs:165:32
+    |
+165 | pub fn sys_waitpid(pid: isize, exit_code_ptr: *mut i32) -> isize {
+    |                                ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_exit_code_ptr`
+
+warning: unused variable: `syscall_id`
+   --> src/syscall/mod.rs:235:23
+    |
+235 | fn print_syscall_exit(syscall_id: SyscallId, result: isize) {
+    |                       ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_syscall_id`
+
+warning: unused variable: `pid`
+   --> src/process/scheduler.rs:414:14
+    |
+414 |         for (pid, process) in &self.processes {
+    |              ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+
+warning: unused variable: `pcb`
+   --> src/process/scheduler.rs:415:17
+    |
+415 |             let pcb = process.lock();
+    |                 ^^^ help: if this is intentional, prefix it with an underscore: `_pcb`
+
+warning: unused variable: `pos`
+  --> src/fs/file.rs:15:24
+   |
+15 |     fn seek(&mut self, pos: SeekFrom) -> Result<usize, FileError> {
+   |                        ^^^ help: if this is intentional, prefix it with an underscore: `_pos`
+
+warning: constant `SIE_BIT` is never used
+   --> src/process/context.rs:221:15
+    |
+221 |     pub const SIE_BIT: usize = 1;   // 当前中断使能
+    |               ^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `set_supervisor_mode` is never used
+   --> src/process/context.rs:229:12
+    |
+229 |     pub fn set_supervisor_mode(sstatus: &mut usize) {
+    |            ^^^^^^^^^^^^^^^^^^^
+
+warning: field `priority` is never read
+   --> src/process/pcb.rs:120:5
+    |
+ 67 | pub struct ProcessControlBlock {
+    |            ------------------- field in this struct
+...
+120 |     priority: usize,
+    |     ^^^^^^^^
+
+warning: constant `ENABLE_SCHEDULER_DEBUG` is never used
+  --> src/process/scheduler.rs:35:7
+   |
+35 | const ENABLE_SCHEDULER_DEBUG: bool = false;
+   |       ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `flags` is never read
+  --> src/fs/fd_table.rs:16:5
+   |
+14 | pub struct FdEntry {
+   |            ------- field in this struct
+15 |     file: Arc<Mutex<dyn File>>,
+16 |     flags: u32,
+   |     ^^^^^
+
+warning: fields `created` and `nlinks` are never read
+  --> src/fs/ramfs.rs:38:5
+   |
+33 | pub struct RamInode {
+   |            -------- fields in this struct
+...
+38 |     created: u64,
+   |     ^^^^^^^
+39 |     modified: u64,
+40 |     nlinks: usize,
+   |     ^^^^^^
+
+warning: function `delay` is never used
+  --> src/system_init.rs:15:4
+   |
+15 | fn delay() {
+   |    ^^^^^
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> src/allocator.rs:46:17
+   |
+46 |     pub fn lock(&self) -> spin::MutexGuard<A> {
+   |                 ^^^^^     ^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+   |                 |
+   |                 the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+   |
+46 |     pub fn lock(&self) -> spin::MutexGuard<'_, A> {
+   |                                            +++
+
+warning: `os` (lib) generated 25 warnings (run `cargo fix --lib -p os` to apply 17 suggestions)
+warning: unused doc comment
+  --> src/main.rs:13:1
+   |
+13 | / /// RISC-V 汇编入口点
+14 | | ///
+15 | | /// 定义在汇编中，负责：
+16 | | /// - 清零 BSS 段
+17 | | /// - 设置栈指针
+18 | | /// - 跳转到 kernel_main
+   | |_-----------------------^
+   |   |
+   |   rustdoc does not generate documentation for macro invocations
+   |
+   = help: to document an item produced by a macro, the macro must produce the documentation as part of its expansion
+   = note: `#[warn(unused_doc_comments)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `os::task::keyboard`
+  --> src/main.rs:10:5
+   |
+10 | use os::task::keyboard;
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `os::task::executor::Executor`
+  --> src/main.rs:11:5
+   |
+11 | use os::task::executor::Executor;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `os::task::Task`
+  --> src/main.rs:56:5
+   |
+56 | use os::task::Task;
+   |     ^^^^^^^^^^^^^^
+
+warning: function `async_number` is never used
+   --> src/main.rs:140:10
+    |
+140 | async fn async_number() -> u32 {
+    |          ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `example_task` is never used
+   --> src/main.rs:144:10
+    |
+144 | async fn example_task() {
+    |          ^^^^^^^^^^^^
+
+warning: function `test_page_table_features` is never used
+   --> src/main.rs:156:4
+    |
+156 | fn test_page_table_features(memory_manager: &mut os::memory::MemoryManager) {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `test_kernel_address_space` is never used
+   --> src/main.rs:243:4
+    |
+243 | fn test_kernel_address_space(memory_manager: &mut os::memory::MemoryManager) {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `test_syscall_features` is never used
+   --> src/main.rs:291:4
+    |
+291 | fn test_syscall_features() {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: `os` (bin "os") generated 9 warnings (run `cargo fix --bin "os" -p os` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `qemu-system-riscv64 -machine virt -cpu rv64 -smp 1 -m 128M -bios default -serial stdio -display default -kernel target/riscv64imac-unknown-none-elf/debug/os`
+
+OpenSBI v1.5.1
+   ____                    _____ ____ _____
+  / __ \                  / ____|  _ \_   _|
+ | |  | |_ __   ___ _ __ | (___ | |_) || |
+ | |  | | '_ \ / _ \ '_ \ \___ \|  _ < | |
+ | |__| | |_) |  __/ | | |____) | |_) || |_
+  \____/| .__/ \___|_| |_|_____/|____/_____|
+        | |
+        |_|
+
+Platform Name             : riscv-virtio,qemu
+Platform Features         : medeleg
+Platform HART Count       : 1
+Platform IPI Device       : aclint-mswi
+Platform Timer Device     : aclint-mtimer @ 10000000Hz
+Platform Console Device   : uart8250
+Platform HSM Device       : ---
+Platform PMU Device       : ---
+Platform Reboot Device    : syscon-reboot
+Platform Shutdown Device  : syscon-poweroff
+Platform Suspend Device   : ---
+Platform CPPC Device      : ---
+Firmware Base             : 0x80000000
+Firmware Size             : 327 KB
+Firmware RW Offset        : 0x40000
+Firmware RW Size          : 71 KB
+Firmware Heap Offset      : 0x49000
+Firmware Heap Size        : 35 KB (total), 2 KB (reserved), 11 KB (used), 21 KB (free)
+Firmware Scratch Size     : 4096 B (total), 416 B (used), 3680 B (free)
+Runtime SBI Version       : 2.0
+
+Domain0 Name              : root
+Domain0 Boot HART         : 0
+Domain0 HARTs             : 0*
+Domain0 Region00          : 0x0000000000100000-0x0000000000100fff M: (I,R,W) S/U: (R,W)
+Domain0 Region01          : 0x0000000010000000-0x0000000010000fff M: (I,R,W) S/U: (R,W)
+Domain0 Region02          : 0x0000000002000000-0x000000000200ffff M: (I,R,W) S/U: ()
+Domain0 Region03          : 0x0000000080040000-0x000000008005ffff M: (R,W) S/U: ()
+Domain0 Region04          : 0x0000000080000000-0x000000008003ffff M: (R,X) S/U: ()
+Domain0 Region05          : 0x000000000c400000-0x000000000c5fffff M: (I,R,W) S/U: (R,W)
+Domain0 Region06          : 0x000000000c000000-0x000000000c3fffff M: (I,R,W) S/U: (R,W)
+Domain0 Region07          : 0x0000000000000000-0xffffffffffffffff M: () S/U: (R,W,X)
+Domain0 Next Address      : 0x0000000080200000
+Domain0 Next Arg1         : 0x0000000087e00000
+Domain0 Next Mode         : S-mode
+Domain0 SysReset          : yes
+Domain0 SysSuspend        : yes
+
+Boot HART ID              : 0
+Boot HART Domain          : root
+Boot HART Priv Version    : v1.12
+Boot HART Base ISA        : rv64imafdch
+Boot HART ISA Extensions  : sstc,zicntr,zihpm,zicboz,zicbom,sdtrig,svadu
+Boot HART PMP Count       : 16
+Boot HART PMP Granularity : 2 bits
+Boot HART PMP Address Bits: 54
+Boot HART MHPM Info       : 16 (0x0007fff8)
+Boot HART Debug Triggers  : 2 triggers
+Boot HART MIDELEG         : 0x0000000000001666
+Boot HART MEDELEG         : 0x0000000000f0b509
+Welcome to Error OS!
+[INIT] Initializing RISC-V OS
+[INTERRUPT] Trap vector initialized
+[INTERRUPT] Timer interrupt enabled
+[INIT] Initialization complete
+[MEMORY] Initializing memory management
+[MEMORY] Kernel end: 0x803c6000
+[MEMORY] Memory range: 0x80000000 - 0x88000000
+[MEMORY] Frame allocator initialized: 0x803c6000 - 0x88000000
+[ALLOCATOR] Initializing heap at 0x80400000
+[ALLOCATOR] Heap size: 1048576 bytes
+[ALLOCATOR] Allocating 256 pages for heap
+[ALLOCATOR] Heap initialized successfully
+[FS] File system initialized
+heap_value 0x80400120
+vec at Pointer { addr: 0x80401000, metadata: 500 }
+current reference count is 2
+reference count is 1 now
+[PROCESS] Initializing process management system
+[PROCESS] Process management system initialized
+
+=== System Initialization ===
+
+
+þþþþþþ6þþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+[þþþþþþ1] þþþþþþ init þþþþþþþþþPID 1þþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+  þþþþþþ:
+    - þþþþþþþþþ: init
+    - þþþþþþþþþþþþ: 0x80000000
+    - þþþþþþþþþþþþ: 0x80010000
+    - þþþþþþþþþ: þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+  þþþ initþþþþþþþþþþþþþþþþþþ!
+    - PID: 1
+    - þþþþþþ: Readyþþþþþþþþþþþþ
+    - þþþþþþþþþþþþþþþþþþþþþ
+
+  þþþþþþþþþþþþþþþþþþþþþþþþ:
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                  þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                      þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ  PID  þþþ  þþþþþþ              þþþ  þþþþþþ      þþþ  þþþPID         þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ    1  þþþ  init             þþþ  þþþþþþ        þþþ    -            þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+  (þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ)
+
+[þþþþþþ2] þþþþþþ shell þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+  þþþþþþ:
+    - þþþþþþþþþ: shell
+    - þþþþþþþþþþþþ: 0x80100000
+    - þþþþþþþþþþþþ: 0x80110000
+    - þþþþþþþþþ: init (PID=1)
+
+  þþþ shellþþþþþþþþþþþþþþþþþþ!
+    - PID: 2
+    - þþþPID: 1
+    - þþþþþþ: Readyþþþþþþþþþþþþ
+
+  þþþþþþþþþþþþþþþþþþþþþþþþ:
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                  þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                      þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ  PID  þþþ  þþþþþþ              þþþ  þþþþþþ      þþþ  þþþPID         þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ    1  þþþ  init             þþþ  þþþþþþ        þþþ    -            þþþ
+þþþ    2  þþþ  shell            þþþ  þþþþþþ        þþþ       1         þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+  (þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ)
+
+[þþþþþþ3] þþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+  þþþþþþþþþþþþ: user_task1
+    - þþþþþþþþþþþþ: 0x80201000
+    - þþþþþþþþþþþþ: 0x80211000
+    - þþþþþþþþþ: init (PID=1)
+  þþþ user_task1 þþþþþþþþþþþþ (PID=3)
+
+  þþþþþþþþþþþþ: user_task2
+    - þþþþþþþþþþþþ: 0x80202000
+    - þþþþþþþþþþþþ: 0x80212000
+    - þþþþþþþþþ: init (PID=1)
+  þþþ user_task2 þþþþþþþþþþþþ (PID=4)
+
+  þþþþþþþþþþþþ: user_task3
+    - þþþþþþþþþþþþ: 0x80203000
+    - þþþþþþþþþþþþ: 0x80213000
+    - þþþþþþþþþ: init (PID=1)
+  þþþ user_task3 þþþþþþþþþþþþ (PID=5)
+
+[þþþþþþþþþþþþþþþþþþ] þþþþþþþþþþþþþþþþþþ:
+
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                                                          þþþ
+þþþ          þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                          þþþ
+þþþ                                                          þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                  þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                      þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ  þþþþþþþþþþþþ:        5                                        þþþ
+þþþ  þþþþþþþþþ:          0                                        þþþ
+þþþ  þþþþþþ:            5                                        þþþ
+þþþ  þþþþþþ:            0                                        þþþ
+þþþ  þþþþþþ:            0                                        þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                  þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                      þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ  (þþþþþþþþþþþþþþþþþþþþþþþþþþþ - IDLEþþþþþþ)                           þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                  þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                      þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ  PID  þþþ  þþþþþþ              þþþ  þþþþþþ      þþþ  þþþPID         þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ    1  þþþ  init             þþþ  þþþþþþ        þþþ    -            þþþ
+þþþ    2  þþþ  shell            þþþ  þþþþþþ        þþþ       1         þþþ
+þþþ    3  þþþ  user_task1       þþþ  þþþþþþ        þþþ       1         þþþ
+þþþ    4  þþþ  user_task2       þþþ  þþþþþþ        þþþ       1         þþþ
+þþþ    5  þþþ  user_task3       þþþ  þþþþþþ        þþþ       1         þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+  (þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ)
+
+þþþþþþ7þþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+
+[þþþþþþþþþþþþ] þþþþþþþþþþþþþþþþþþ
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ              þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                        þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                                                            þþþ
+þþþ  / (root, ino=1)                                           þþþ
+þþþ  (þþþþþþþþþ)                                                  þþþ
+þþþ                                                            þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+  (þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ)
+
+[þþþþþþ1] þþþþþþ /etc þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+  þþþ /etc þþþþþþþþþþþþþþþþþþ
+    - Inode: 2
+    - þþþþþþ: Directory
+
+  þþþþþþþþþþþþþþþþþþ:
+    þþþ /etc/passwd
+      - þþþþþþ: 30 bytes
+      - þþþþþþ: þþþþþþþþþþþþþþþþþþ
+    þþþ /etc/hostname
+      - þþþþþþ: 9 bytes
+      - þþþþþþ: þþþþþþþþþ
+
+  þþþþþþþþþþþþþþþþþþþþþþþþ:
+
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ              þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ                        þþþ
+þþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþþ
+þþþ                                                            þþþ
+þþþ  / (root, ino=1)                                           þþþ

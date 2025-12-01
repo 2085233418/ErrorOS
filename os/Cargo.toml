@@ -61,3 +61,7 @@ harness = false
 [[test]]
 name = "heap_allocation"
 harness = false
+
+[[test]]
+name = "test_process_management"
+harness = false

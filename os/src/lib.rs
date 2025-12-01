@@ -35,6 +35,9 @@ pub mod memory;      // 内存管理
 pub mod allocator;   // 堆分配器
 pub mod task;        // 异步任务系统
 pub mod syscall;     // 系统调用
+pub mod process;     // 进程管理（第6章新增）
+pub mod fs;          // 文件系统（第7章新增）
+pub mod system_init; // 系统初始化
 
 // ============================================
 // 外部 crate
