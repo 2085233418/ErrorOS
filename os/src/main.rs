@@ -67,9 +67,7 @@ pub extern "C" fn kernel_main() -> ! {
     use os::allocator;
 
     println!("Welcome to Error OS{}", "!");
-    //
-
-    // 获取内核结束地址（由链接器定义）
+    // 获取内核结束地址（由链接器在编译时期确定）
     extern "C" {
         static kernel_end: u8;
     }
@@ -77,10 +75,10 @@ pub extern "C" fn kernel_main() -> ! {
 
     // 初始化内存管理
     let mut memory_manager = memory::init(kernel_end_addr);
-
+    //初始化堆分配器
     allocator::init_heap(&mut memory_manager.frame_allocator)
         .expect("heap initialization failed");
-
+/********************************************************************* */
     let heap_value=Box::new(41);
     os::init();
     println!("heap_value {:p}",heap_value);
